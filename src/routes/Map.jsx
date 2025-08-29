@@ -84,7 +84,7 @@ export default function Map() {
         onClick={requestLocation}
         style={{
           position: "absolute",
-          top: 10,
+          top: 100,
           left: 10,
           padding: "10px 15px",
           backgroundColor: "#007bff",

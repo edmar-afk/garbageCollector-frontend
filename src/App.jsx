@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Map from "./routes/Map";
 function Logout() {
   localStorage.clear();

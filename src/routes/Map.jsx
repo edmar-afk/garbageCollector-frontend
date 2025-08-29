@@ -18,44 +18,45 @@ const DefaultIcon = L.icon({
 export default function Map() {
   const [position, setPosition] = useState(null);
   const [accuracy, setAccuracy] = useState(null);
-  const [permissionDenied, setPermissionDenied] = useState(false);
 
-  useEffect(() => {
+  const requestLocation = () => {
     if (!("geolocation" in navigator)) {
-      setPermissionDenied(true);
+      alert("Geolocation is not supported by your browser");
       return;
     }
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude, accuracy } = pos.coords;
-        console.log("Initial position:", latitude, longitude);
         setPosition([latitude, longitude]);
         setAccuracy(accuracy);
-
-        const watchId = navigator.geolocation.watchPosition(
-          (pos) => {
-            const { latitude, longitude, accuracy } = pos.coords;
-            console.log("Updated position:", latitude, longitude);
-            setPosition([latitude, longitude]);
-            setAccuracy(accuracy);
-          },
-          (err) => console.error(err),
-          { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
-        );
-
-        return () => navigator.geolocation.clearWatch(watchId);
       },
       (err) => {
-        console.error("Permission denied or error:", err);
-        setPermissionDenied(true);
+        console.error(err);
+        if (err.code === err.PERMISSION_DENIED) {
+          alert(
+            "Permission denied. Please allow location access to show your position."
+          );
+        }
       },
-      { enableHighAccuracy: true, timeout: 5000 }
+      { enableHighAccuracy: true }
     );
-  }, []);
+
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        const { latitude, longitude, accuracy } = pos.coords;
+        setPosition([latitude, longitude]);
+        setAccuracy(accuracy);
+      },
+      (err) => console.error(err),
+      { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+    );
+
+    return () => navigator.geolocation.clearWatch(watchId);
+  };
 
   return (
-    <div style={{ height: "500px", width: "100%" }}>
+    <div style={{ height: "500px", width: "100%", position: "relative" }}>
       <MapContainer
         center={position ?? [14.5995, 120.9842]}
         zoom={position ? 16 : 12}
@@ -63,11 +64,6 @@ export default function Map() {
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {permissionDenied && (
-          <Marker position={[14.5995, 120.9842]} icon={DefaultIcon}>
-            <Popup>Location access denied. Showing default (Manila)</Popup>
-          </Marker>
-        )}
         {position && (
           <>
             <Marker position={position} icon={DefaultIcon}>
@@ -83,7 +79,24 @@ export default function Map() {
           </>
         )}
       </MapContainer>
-      <p>Updated new</p>
+
+      <button
+        onClick={requestLocation}
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          padding: "10px 15px",
+          backgroundColor: "#007bff",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          zIndex: 1000,
+        }}
+      >
+        Enable GPS
+      </button>
     </div>
   );
 }

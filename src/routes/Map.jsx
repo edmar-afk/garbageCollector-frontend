@@ -83,6 +83,7 @@ export default function Map() {
           </>
         )}
       </MapContainer>
+      <p>Updated</p>
     </div>
   );
 }

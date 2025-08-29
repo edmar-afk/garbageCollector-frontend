@@ -18,32 +18,40 @@ const DefaultIcon = L.icon({
 export default function Map() {
   const [position, setPosition] = useState(null);
   const [accuracy, setAccuracy] = useState(null);
+  const [permissionDenied, setPermissionDenied] = useState(false);
 
   useEffect(() => {
-    if (!("geolocation" in navigator)) return;
+    if (!("geolocation" in navigator)) {
+      setPermissionDenied(true);
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude, accuracy } = pos.coords;
         console.log("Initial position:", latitude, longitude);
         setPosition([latitude, longitude]);
         setAccuracy(accuracy);
-      },
-      (err) => console.error(err),
-      { enableHighAccuracy: true }
-    );
 
-    const watchId = navigator.geolocation.watchPosition(
-      (pos) => {
-        const { latitude, longitude, accuracy } = pos.coords;
-        console.log("Updated position:", latitude, longitude);
-        setPosition([latitude, longitude]);
-        setAccuracy(accuracy);
-      },
-      (err) => console.error(err),
-      { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
-    );
+        const watchId = navigator.geolocation.watchPosition(
+          (pos) => {
+            const { latitude, longitude, accuracy } = pos.coords;
+            console.log("Updated position:", latitude, longitude);
+            setPosition([latitude, longitude]);
+            setAccuracy(accuracy);
+          },
+          (err) => console.error(err),
+          { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+        );
 
-    return () => navigator.geolocation.clearWatch(watchId);
+        return () => navigator.geolocation.clearWatch(watchId);
+      },
+      (err) => {
+        console.error("Permission denied or error:", err);
+        setPermissionDenied(true);
+      },
+      { enableHighAccuracy: true, timeout: 5000 }
+    );
   }, []);
 
   return (
@@ -55,6 +63,11 @@ export default function Map() {
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {permissionDenied && (
+          <Marker position={[14.5995, 120.9842]} icon={DefaultIcon}>
+            <Popup>Location access denied. Showing default (Manila)</Popup>
+          </Marker>
+        )}
         {position && (
           <>
             <Marker position={position} icon={DefaultIcon}>

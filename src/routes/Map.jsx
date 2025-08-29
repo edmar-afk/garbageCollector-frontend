@@ -62,7 +62,12 @@ export default function Map() {
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {/* Esri World Imagery (Satellite) */}
+        <TileLayer
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          attribution="&copy; <a href='https://www.esri.com/'>Esri</a> | Tiles © Esri &mdash; Source: Esri, Maxar, Earthstar Geographics"
+        />
+
         {permissionDenied && (
           <Marker position={[14.5995, 120.9842]} icon={DefaultIcon}>
             <Popup>Location access denied. Showing default (Manila)</Popup>
@@ -83,7 +88,7 @@ export default function Map() {
           </>
         )}
       </MapContainer>
-      <p>Updated</p>
+      <p>New updated</p>
     </div>
   );
 }

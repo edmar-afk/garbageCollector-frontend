@@ -26,7 +26,7 @@ const Welcome = () => {
       <img
         src={welcomeImg}
         alt="Welcome"
-        className="w-[480px] h-full -mt-24 rounded-2xl object-contain"
+        className="w-[480px] h-full rounded-2xl object-contain"
       />
     </div>
   );

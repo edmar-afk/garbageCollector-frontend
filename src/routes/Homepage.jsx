@@ -10,9 +10,8 @@ function Homepage() {
     <>
       <Header />
       <Greetings />
-      <History/>
-      <SendRequest/>
-      <Navbar/>
+      <History />
+      <Navbar />
     </>
   );
 }

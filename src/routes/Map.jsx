@@ -95,7 +95,7 @@ export default function Map() {
           zIndex: 1000,
         }}
       >
-        Enable GPS
+        Enable GPS updated
       </button>
     </div>
   );

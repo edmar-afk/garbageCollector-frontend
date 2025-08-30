@@ -11,9 +11,9 @@ export default defineConfig({
 			registerType: "prompt",
 			includeAssets: ["favicon.ico", "apple-touch-icon.png"],
 			manifest: {
-				name: "Cooking App",
-				short_name: "Cooking App",
-				description: "A Progressive App for Cooking Recipes",
+				name: "Garbage Collector",
+				short_name: "Garbage Collector",
+				description: "A Progressive App for Collecting Garbage",
 				start_url: "/",
 				display: "standalone",
 				background_color: "#ffffff",

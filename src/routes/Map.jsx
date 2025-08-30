@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -21,7 +21,7 @@ export default function Map() {
 
   const requestLocation = () => {
     if (!("geolocation" in navigator)) {
-      alert("Geolocation is not supported by your browser");
+      alert("Geolocation is not supported by your phone");
       return;
     }
 
@@ -58,7 +58,7 @@ export default function Map() {
   return (
     <div style={{ height: "500px", width: "100%", position: "relative" }}>
       <MapContainer
-        center={position ?? [14.5995, 120.9842]}
+        center={position ?? [7.85286, 123.154913]}
         zoom={position ? 16 : 12}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}

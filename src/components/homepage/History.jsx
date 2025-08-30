@@ -12,7 +12,7 @@ const History = () => {
           <p className="text-sm font-semibold text-blue-700">Transported</p>
         </div>
       </div>
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 space-y-4 mb-20">
         <HistoryCard />
         <HistoryCard />
         <HistoryCard />

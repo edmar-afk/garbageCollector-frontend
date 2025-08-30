@@ -14,85 +14,93 @@ import logoImg from "../assets/images/logo.png";
 import Back from "../components/Back";
 import api from "../assets/api";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
   const [mobile, setMobile] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(null);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleMobileChange = (e) => {
     const text = e.target.value;
-    if (/^[0-9]*$/.test(text)) {
+    if (/^[0-9]*$/.test(text) && text.length <= 11) {
       setMobile(text);
-      if (text && !text.startsWith("09")) {
-        setError("Mobile number must start with 09");
+      if (text.length === 11) {
+        if (!text.startsWith("09")) {
+          setError("Mobile number must start with 09");
+        } else {
+          setError("");
+        }
+      } else if (text.length > 0) {
+        setError("Mobile number must be 11 digits");
       } else {
         setError("");
       }
     }
   };
 
-  const handleLogin = async () => {
-    if (!mobile || !password) {
+  const handleProfileChange = (e) => {
+    setProfilePicture(e.target.files[0]);
+  };
+
+  const handleRegister = async () => {
+    if (!mobile || !password || !!error) {
       Swal.fire({
-        position: "top-right",
+        position: "top-end",
         icon: "error",
-        title: "Please enter mobile number and password",
+        title: "Please fill all fields correctly",
         showConfirmButton: false,
-        timer: 5000,
-        toast: true,
+        timer: 3000,
       });
       return;
     }
 
-    setLoading(true);
+    const formData = new FormData();
+    formData.append("username", mobile);
+    formData.append("first_name", fullName);
+    formData.append("last_name", address);
+    formData.append("password", password);
+    if (profilePicture) formData.append("profile_picture", profilePicture);
 
     try {
-      const response = await api.post("/api/login/", {
-        username: mobile,
-        password: password,
+      const res = await api.post("/api/register/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
-      localStorage.setItem("userData", JSON.stringify(response.data));
-
-      let timerInterval;
       Swal.fire({
-        title: "Login successful!",
-        html: "Redirecting in <b></b> seconds.",
+        toast: true,
+        position: "top-end",
+        icon: "success", // or "error"
+        title: "Registration successful!",
+        showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
-        position: "top-right",
-        toast: true,
-        didOpen: (toast) => {
-          const b = toast.querySelector("b");
-          timerInterval = setInterval(() => {
-            b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
-          }, 100);
-        },
-        willClose: () => {
-          clearInterval(timerInterval);
-        },
-      }).then(() => {
-        navigate("/homepage");
       });
+
+      setTimeout(() => navigate("/login"), 5000);
     } catch (err) {
+      console.error(err);
+      let message = "Registration failed!";
+      if (err.response && err.response.data) {
+        message = Object.values(err.response.data).flat().join(" ");
+      }
       Swal.fire({
-        position: "top-right",
-        icon: "error",
-        title: err.response?.data?.detail || "Login failed",
-        showConfirmButton: false,
-        timer: 3000,
         toast: true,
+        position: "top-end",
+        icon: "error",
+        title: message,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <Box className="flex flex-col bg-[#f8fafc] min-h-screen">
+    <Box className="flex flex-col bg-[#f8fafc] min-h-screen mt-24">
       <Back />
       <Box className="flex-1 flex flex-col items-center justify-center px-6">
         <Box className="items-center mb-4 text-center">
@@ -105,7 +113,7 @@ const Login = () => {
 
         <Box className="w-full max-w-sm bg-white rounded-2xl p-6 shadow-xl">
           <Typography variant="h4" fontWeight="bold" textAlign="center" mb={1}>
-            Welcome
+            Create Account
           </Typography>
           <Typography
             variant="body1"
@@ -113,10 +121,18 @@ const Login = () => {
             color="textSecondary"
             mb={6}
           >
-            Sign in to continue
+            Register to continue
           </Typography>
 
           <Box className="flex flex-col gap-4">
+            <TextField
+              label="Full Name"
+              placeholder="John Doe"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              fullWidth
+            />
+
             <TextField
               label="Mobile Number"
               placeholder="09XXXXXXXXX"
@@ -124,6 +140,15 @@ const Login = () => {
               onChange={handleMobileChange}
               error={!!error}
               helperText={error}
+              fullWidth
+              inputProps={{ maxLength: 11 }}
+            />
+
+            <TextField
+              label="Address"
+              placeholder="Your address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               fullWidth
             />
 
@@ -144,26 +169,37 @@ const Login = () => {
               }}
             />
 
+            <Button variant="contained" component="label">
+              Upload Profile Picture
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleProfileChange}
+              />
+            </Button>
+
             <Button
               variant="contained"
               color="primary"
               className="mt-2"
               fullWidth
-              onClick={handleLogin}
-              disabled={loading}
+              onClick={handleRegister}
             >
-              {loading ? "Signing In..." : "Sign In"}
+              Register
             </Button>
           </Box>
 
           <Box className="flex justify-center items-center mt-5">
-            <Typography color="textSecondary">New here? </Typography>
+            <Typography color="textSecondary">
+              Already have an account?{" "}
+            </Typography>
             <Button
               color="primary"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/login")}
               sx={{ textTransform: "none", fontWeight: "medium", ml: 1 }}
             >
-              Create an account
+              Sign In
             </Button>
           </Box>
         </Box>
@@ -172,4 +208,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

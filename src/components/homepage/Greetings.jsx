@@ -1,9 +1,11 @@
 import React from "react";
 import trashImg from "../../assets/images/trash.jpg";
-
+import { getUserInfoFromToken } from "../../utils/auth";
 const Greetings = () => {
+  const token = localStorage.getItem("userData");
+  const userInfo = getUserInfoFromToken(token);
   const currentHour = new Date().getHours();
-
+  console.log('user: ', userInfo)
   let greeting = "";
   if (currentHour >= 0 && currentHour < 12) {
     greeting = "Good Morning";
@@ -16,7 +18,7 @@ const Greetings = () => {
   return (
     <div className="">
       <div className="px-4 mt-8">
-        <h2 className="text-xl font-semibold">{greeting}, User</h2>
+        <h2 className="text-xl font-semibold">{greeting}, {userInfo.first_name}</h2>
         <p className="text-gray-500 mt-1">
           Do you have extra trash to dispose today?
         </p>

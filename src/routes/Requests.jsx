@@ -1,13 +1,10 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-
+import Map from "../components/requests/Map";
 function Requests() {
   return (
     <>
-      
-      <Navbar/>
+      <Map />
     </>
-  )
+  );
 }
 
-export default Requests
+export default Requests;

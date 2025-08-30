@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import SendRequest from "./SendRequest";
 
 const DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -56,12 +57,12 @@ export default function Map() {
   };
 
   return (
-    <div style={{ height: "500px", width: "100%", position: "relative" }}>
+    <div className="relative w-full h-[500px]">
       <MapContainer
         center={position ?? [7.85286, 123.154913]}
-        zoom={position ? 16 : 12}
+        zoom={16}
         scrollWheelZoom={true}
-        style={{ height: "100%", width: "100%" }}
+        className="w-full h-[800px]"
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {position && (
@@ -75,28 +76,13 @@ export default function Map() {
                 Lng: {position[1].toFixed(6)}
               </Popup>
             </Marker>
-            {accuracy && <Circle center={position} radius={accuracy} />}
+            {accuracy && <Circle center={position} />}
           </>
         )}
       </MapContainer>
 
-      <button
-        onClick={requestLocation}
-        style={{
-          position: "absolute",
-          top: 100,
-          left: 10,
-          padding: "10px 15px",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          zIndex: 1000,
-        }}
-      >
-        Enable GPS updated
-      </button>
+      {/* Remove old button */}
+      <SendRequest requestLocation={requestLocation} locationSet={!!position} />
     </div>
   );
 }

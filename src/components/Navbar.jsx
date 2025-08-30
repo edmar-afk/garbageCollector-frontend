@@ -12,7 +12,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200">
+    <div className="fixed bottom-0 left-0 w-full h-16 bg-white border-t border-gray-200 z-[9999]">
       <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
         {tabs.map((tab) => {
           const isActive = location.pathname === tab.value;

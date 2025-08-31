@@ -7,6 +7,7 @@ import {
   InputAdornment,
   Box,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Swal from "sweetalert2";
@@ -23,6 +24,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleMobileChange = (e) => {
     const text = e.target.value;
@@ -58,6 +60,7 @@ const Register = () => {
       return;
     }
 
+    setLoading(true); // start loading
     const formData = new FormData();
     formData.append("username", mobile);
     formData.append("first_name", fullName);
@@ -66,14 +69,14 @@ const Register = () => {
     if (profilePicture) formData.append("profile_picture", profilePicture);
 
     try {
-      const res = await api.post("/api/register/", formData, {
+      await api.post("/api/register/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       Swal.fire({
         toast: true,
         position: "top-end",
-        icon: "success", // or "error"
+        icon: "success",
         title: "Registration successful!",
         showConfirmButton: false,
         timer: 5000,
@@ -96,6 +99,8 @@ const Register = () => {
         timer: 5000,
         timerProgressBar: true,
       });
+    } finally {
+      setLoading(false); // stop loading
     }
   };
 
@@ -185,8 +190,16 @@ const Register = () => {
               className="mt-2"
               fullWidth
               onClick={handleRegister}
+              disabled={loading}
             >
-              Register
+              {loading ? (
+                <>
+                  <CircularProgress size={20} color="inherit" className="mr-2" />
+                  Registering...
+                </>
+              ) : (
+                "Register"
+              )}
             </Button>
           </Box>
 

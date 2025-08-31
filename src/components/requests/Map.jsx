@@ -82,7 +82,11 @@ export default function Map() {
       </MapContainer>
 
       {/* Remove old button */}
-      <SendRequest requestLocation={requestLocation} locationSet={!!position} />
+      <SendRequest
+        requestLocation={requestLocation}
+        locationSet={!!position}
+        position={position}
+      />
     </div>
   );
 }

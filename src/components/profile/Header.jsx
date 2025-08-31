@@ -1,14 +1,16 @@
 import React from "react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Link } from "react-router-dom";
-
+import { getUserInfoFromToken } from "../../utils/auth";
 const Header = () => {
+  const token = localStorage.getItem("userData");
+  const userInfo = getUserInfoFromToken(token);
   return (
     <div className="pt-12 px-4 flex flex-row items-center justify-between">
       <div className="flex flex-row items-center">
         <AccountCircleIcon fontSize="small" />
-        <span className="ml-2 text-sm font-light">Welcome to your Profile</span>
+        <span className="ml-2 text-sm font-light">{userInfo.first_name}'s Profile</span>
       </div>
       <Link to={"/logout"} className="flex flex-row items-center">
         <ExitToAppIcon fontSize="small" />

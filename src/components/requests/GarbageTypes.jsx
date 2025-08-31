@@ -10,7 +10,7 @@ import constructionImg from "../../assets/images/garbages/carriage-wheel.svg";
 
 import CheckIcon from "@mui/icons-material/Check";
 
-function GarbageTypes() {
+function GarbageTypes({ onSelect }) {
   const garbageOptions = [
     { id: "biodegradable", label: "Biodegradable", img: biodegradableImg },
     {
@@ -28,14 +28,16 @@ function GarbageTypes() {
 
   const [selected, setSelected] = useState([]);
 
-  // Debugging useEffect (optional)
+  // ✅ Notify parent only after selected changes
   useEffect(() => {
-    console.log("Selected garbage types:", selected);
-  }, [selected]);
+    if (onSelect) {
+      onSelect(selected);
+    }
+  }, [selected, onSelect]);
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   };
 
@@ -54,21 +56,16 @@ function GarbageTypes() {
                     : "border-gray-200"
                 }`}
               >
-                {/* Checkmark */}
                 {selected.includes(option.id) && (
                   <div className="absolute top-1 left-1 flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 z-10">
                     <CheckIcon className="text-white" fontSize="small" />
                   </div>
                 )}
-
-                {/* Image */}
                 <img
                   src={option.img}
                   alt={option.label}
                   className="mb-2 w-7 h-7"
                 />
-
-                {/* Text */}
                 <div className="text-xs font-semibold text-center text-white">
                   {option.label}
                 </div>

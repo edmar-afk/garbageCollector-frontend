@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import logoImg from "../assets/images/logo.png";
 import Back from "../components/Back";
 import api from "../assets/api";
-
+import { getUserInfoFromToken } from "../utils/auth";
 const Login = () => {
   const navigate = useNavigate();
   const [mobile, setMobile] = useState("");
@@ -57,7 +57,7 @@ const Login = () => {
 
       localStorage.setItem("userData", JSON.stringify(response.data));
 
-      let timerInterval;
+     
       Swal.fire({
         title: "Login successful!",
         html: "Redirecting in <b></b> seconds.",
@@ -65,17 +65,13 @@ const Login = () => {
         timerProgressBar: true,
         position: "top-right",
         toast: true,
-        didOpen: (toast) => {
-          const b = toast.querySelector("b");
-          timerInterval = setInterval(() => {
-            b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
-          }, 100);
-        },
-        willClose: () => {
-          clearInterval(timerInterval);
-        },
       }).then(() => {
-        navigate("/homepage");
+        const userInfo = getUserInfoFromToken(response.data.access);
+        if (userInfo.is_superuser) {
+          navigate("/collector-homepage");
+        } else {
+          navigate("/homepage");
+        }
       });
     } catch (err) {
       Swal.fire({

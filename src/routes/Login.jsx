@@ -68,7 +68,7 @@ const Login = () => {
       }).then(() => {
         const userInfo = getUserInfoFromToken(response.data.access);
         if (userInfo.is_superuser) {
-          navigate("/collector-homepage");
+          navigate("/dashboard");
         } else {
           navigate("/homepage");
         }

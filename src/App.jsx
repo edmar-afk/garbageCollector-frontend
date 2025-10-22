@@ -7,6 +7,7 @@ import Requests from "./routes/Requests";
 import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import CollectorHomepage from "./routes/CollectorHomepage";
+import Dashboard from "./routes/Dashboard";
 
 function Logout() {
   localStorage.clear();
@@ -57,6 +58,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/collector-homepage" element={<CollectorHomepage />} />
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/requests" element={<Requests />} />

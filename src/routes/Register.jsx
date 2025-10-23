@@ -8,8 +8,10 @@ import {
   Box,
   Typography,
   CircularProgress,
+  Card,
+  CardMedia,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff, Close } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import logoImg from "../assets/images/logo.png";
 import Back from "../components/Back";
@@ -23,6 +25,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +48,16 @@ const Register = () => {
   };
 
   const handleProfileChange = (e) => {
-    setProfilePicture(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePicture(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setProfilePicture(null);
+    setPreview(null);
   };
 
   const handleRegister = async () => {
@@ -60,7 +72,7 @@ const Register = () => {
       return;
     }
 
-    setLoading(true); // start loading
+    setLoading(true);
     const formData = new FormData();
     formData.append("username", mobile);
     formData.append("first_name", fullName);
@@ -87,7 +99,6 @@ const Register = () => {
     } catch (err) {
       console.error(err);
       let message = "Registration failed!";
-
       if (err.response && err.response.data) {
         if (
           err.response.data.username &&
@@ -98,7 +109,6 @@ const Register = () => {
           message = Object.values(err.response.data).flat().join(" ");
         }
       }
-
       Swal.fire({
         toast: true,
         position: "top-end",
@@ -108,6 +118,8 @@ const Register = () => {
         timer: 5000,
         timerProgressBar: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -191,6 +203,35 @@ const Register = () => {
               />
             </Button>
 
+            {preview && (
+              <Card
+                variant="outlined"
+                className="mt-3 relative border border-gray-300 rounded-lg"
+              >
+                <IconButton
+                  onClick={handleRemoveImage}
+                  size="small"
+                  className="absolute top-1 right-1 bg-white"
+                >
+                  <Close fontSize="small" />
+                </IconButton>
+                <CardMedia
+                  component="img"
+                  image={preview}
+                  alt="Profile Preview"
+                  className="rounded-lg"
+                  sx={{ maxHeight: 200, objectFit: "cover" }}
+                />
+                <Typography
+                  variant="body2"
+                  textAlign="center"
+                  className="p-2 text-gray-600"
+                >
+                  {profilePicture?.name}
+                </Typography>
+              </Card>
+            )}
+
             <Button
               variant="contained"
               color="primary"
@@ -201,11 +242,7 @@ const Register = () => {
             >
               {loading ? (
                 <>
-                  <CircularProgress
-                    size={20}
-                    color="inherit"
-                    className="mr-2"
-                  />
+                  <CircularProgress size={20} color="inherit" className="mr-2" />
                   Registering...
                 </>
               ) : (

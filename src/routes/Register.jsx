@@ -193,15 +193,22 @@ const Register = () => {
               }}
             />
 
-            <Button variant="contained" component="label">
-              Upload Profile Picture
+            <Box>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() => document.getElementById("fileInput").click()}
+              >
+                Upload Profile Picture
+              </Button>
               <input
+                id="fileInput"
                 type="file"
-                hidden
                 accept="image/*"
+                style={{ display: "none" }}
                 onChange={handleProfileChange}
               />
-            </Button>
+            </Box>
 
             {preview && (
               <Card
@@ -242,7 +249,11 @@ const Register = () => {
             >
               {loading ? (
                 <>
-                  <CircularProgress size={20} color="inherit" className="mr-2" />
+                  <CircularProgress
+                    size={20}
+                    color="inherit"
+                    className="mr-2"
+                  />
                   Registering...
                 </>
               ) : (

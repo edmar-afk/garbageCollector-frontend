@@ -46,5 +46,18 @@
     "tailwindcss": "^4.1.11",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.0.2"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edmar-afk/garbageCollector-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edmar-afk/garbageCollector-frontend/issues"
+  },
+  "homepage": "https://github.com/edmar-afk/garbageCollector-frontend#readme"
 }

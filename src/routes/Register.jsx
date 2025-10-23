@@ -87,9 +87,18 @@ const Register = () => {
     } catch (err) {
       console.error(err);
       let message = "Registration failed!";
+
       if (err.response && err.response.data) {
-        message = Object.values(err.response.data).flat().join(" ");
+        if (
+          err.response.data.username &&
+          err.response.data.username[0].includes("already exists")
+        ) {
+          message = "User with the same mobile number already exists";
+        } else {
+          message = Object.values(err.response.data).flat().join(" ");
+        }
       }
+
       Swal.fire({
         toast: true,
         position: "top-end",
@@ -99,8 +108,6 @@ const Register = () => {
         timer: 5000,
         timerProgressBar: true,
       });
-    } finally {
-      setLoading(false); // stop loading
     }
   };
 
@@ -194,7 +201,11 @@ const Register = () => {
             >
               {loading ? (
                 <>
-                  <CircularProgress size={20} color="inherit" className="mr-2" />
+                  <CircularProgress
+                    size={20}
+                    color="inherit"
+                    className="mr-2"
+                  />
                   Registering...
                 </>
               ) : (

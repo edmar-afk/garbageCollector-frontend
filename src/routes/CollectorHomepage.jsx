@@ -11,6 +11,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 export default function CollectionHomepage() {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [profiles, setProfiles] = useState({});
+  const [loadingRequests, setLoadingRequests] = useState({});
 
   const fetchPendingRequests = () => {
     api.get("/api/pending-requests/").then((res) => {
@@ -26,13 +27,18 @@ export default function CollectionHomepage() {
     pendingRequests.forEach((req) => {
       if (req.user_id && !profiles[req.user_id]) {
         api.get(`/api/profile/${req.user_id}/`).then((res) => {
-          setProfiles((prev) => ({ ...prev, [req.user_id]: res.data }));
+          const profileData = res.data;
+          const profilePic = profileData?.profile_picture
+            ? profileData.profile_picture.replace("http://", "https://")
+            : logo;
+          setProfiles((prev) => ({
+            ...prev,
+            [req.user_id]: { ...profileData, profile_picture: profilePic },
+          }));
         });
       }
     });
   }, [pendingRequests]);
-
-  const [loadingRequests, setLoadingRequests] = useState({});
 
   const handleMarkPickedUp = (requestId) => {
     setLoadingRequests((prev) => ({ ...prev, [requestId]: true }));
@@ -69,20 +75,20 @@ export default function CollectionHomepage() {
     return L.divIcon({
       className: "",
       html: `
-      <div style="display: flex; flex-direction: column; align-items: center;">
-        <div 
-          style="background: white; border-radius: 50%; padding: 4px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 4px rgba(0,0,0,0.3);">
-          <img 
-            src="${profilePicture}" 
-            style="width:40px; height:40px; border-radius:50%;" 
-          />
-        </div>
-        <div 
-          style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 15px solid white; margin-top: -2px;">
-        
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div 
+            style="background: white; border-radius: 50%; padding: 4px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 4px rgba(0,0,0,0.3);">
+            <img 
+              src="${profilePicture}" 
+              onerror="this.src='${logo}'"
+              style="width:40px; height:40px; border-radius:50%;" 
+            />
           </div>
-      </div>
-    `,
+          <div 
+            style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 15px solid white; margin-top: -2px;">
+          </div>
+        </div>
+      `,
       iconAnchor: [20, 55],
     });
   };

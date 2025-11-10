@@ -13,7 +13,7 @@ function Body() {
   const [profile, setProfile] = useState(null);
   const [requestCount, setRequestCount] = useState(0);
   const fileInputRef = useRef(null);
-
+  console.log(profile);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -71,10 +71,18 @@ function Body() {
     <div className="p-4 mt-4">
       <div className="relative w-fit mb-6">
         <img
-          src={profile.profile_picture || logo}
+          src={
+            profile.profile_picture.startsWith("http")
+              ? profile.profile_picture.replace("http://", "https://")
+              : profile.profile_picture
+          }
+          onError={(e) => {
+            e.currentTarget.src = logo;
+          }}
           alt="Profile"
           className="w-52 h-52 rounded-full mt-2 object-cover"
         />
+
         <button
           type="button"
           onClick={handleIconClick}
@@ -104,7 +112,8 @@ function Body() {
         </p>
       </div>
       <p className="mt-6 text-gray-700 font-semibold">
-        You disposed <span className="text-blue-600">{requestCount}</span> request(s) you since joined us. Keep our community clean and safe!
+        You disposed <span className="text-blue-600">{requestCount}</span>{" "}
+        request(s) you since joined us. Keep our community clean and safe!
       </p>
     </div>
   );

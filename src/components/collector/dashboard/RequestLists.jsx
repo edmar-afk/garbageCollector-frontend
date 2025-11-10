@@ -92,10 +92,14 @@ function RequestLists() {
               className="flex flex-row w-full bg-white p-3 rounded-2xl shadow items-center"
             >
               <img
-                src={profilePic}
+                src={profilePic?.replace("http://", "https://") || logo}
+                onError={(e) => {
+                  e.currentTarget.src = logo;
+                }}
                 className="w-12 h-12 rounded-full object-cover"
                 alt="Profile"
               />
+
               <div className="flex flex-col ml-2 w-full">
                 <div className="flex flex-row items-center justify-between w-full">
                   <p className="text-md font-semibold truncate w-36">

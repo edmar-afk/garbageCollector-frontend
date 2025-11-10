@@ -69,7 +69,6 @@ function Body() {
 
   return (
     <div className="p-4 mt-4">
-      update
       <div className="relative w-fit mb-6">
         <img
           src={

@@ -7,7 +7,7 @@ function Requests() {
 
   return (
     <>
-      <div className="pt-14 pb-8 bg-blue-100 px-4 text-center">
+      <div className="pt-14 pb-8 bg-green-100 px-4 text-center">
         Welcome, Garbage Collector! Keep the community clean by managing
         residents’ garbage disposal requests right here.
       </div>
@@ -18,7 +18,7 @@ function Requests() {
           <button
             onClick={() => setView("list")}
             className={`${
-              view === "list" ? "font-bold text-blue-600" : "text-gray-500"
+              view === "list" ? "font-bold text-green-600" : "text-gray-500"
             }`}
           >
             List View
@@ -27,7 +27,7 @@ function Requests() {
           <button
             onClick={() => setView("map")}
             className={`${
-              view === "map" ? "font-bold text-blue-600" : "text-gray-500"
+              view === "map" ? "font-bold text-green-600" : "text-gray-500"
             }`}
           >
             Map View

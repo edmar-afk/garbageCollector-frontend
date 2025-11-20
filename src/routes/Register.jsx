@@ -196,6 +196,7 @@ const Register = () => {
             <Box>
               <Button
                 variant="contained"
+                color="success"
                 fullWidth
                 onClick={() => document.getElementById("fileInput").click()}
               >
@@ -241,7 +242,7 @@ const Register = () => {
 
             <Button
               variant="contained"
-              color="primary"
+              color="success"
               className="mt-2"
               fullWidth
               onClick={handleRegister}

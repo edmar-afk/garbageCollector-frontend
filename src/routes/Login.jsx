@@ -142,7 +142,7 @@ const Login = () => {
 
             <Button
               variant="contained"
-              color="primary"
+              color="success"
               className="mt-2"
               fullWidth
               onClick={handleLogin}
@@ -155,7 +155,7 @@ const Login = () => {
           <Box className="flex justify-center items-center mt-5">
             <Typography color="textSecondary">New here? </Typography>
             <Button
-              color="primary"
+              color="success"
               onClick={() => navigate("/register")}
               sx={{ textTransform: "none", fontWeight: "medium", ml: 1 }}
             >

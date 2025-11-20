@@ -24,7 +24,7 @@ function TrashCounts({ garbageType, count }) {
   const imgSrc = images[typeKey] || biodegradableImg;
 
   return (
-    <div className="bg-blue-400 rounded-xl shadow-lg p-4 w-[180px] flex-shrink-0">
+    <div className="bg-green-400 rounded-xl shadow-lg p-4 w-[180px] flex-shrink-0">
       <div className="flex flex-row items-center gap-2">
         <img src={imgSrc} className="w-8 mb-2" alt={garbageType} />
         <div className="flex flex-row gap-2 items-center">

@@ -74,7 +74,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="bg-blue-600 text-white pt-12 pb-24 px-4 relative">
+    <div className="bg-green-600 text-white pt-12 pb-24 px-4 relative">
       <img
         src={garbagebg}
         className="absolute w-82 -top-4 -right-7 opacity-50"

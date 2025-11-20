@@ -111,7 +111,7 @@ function RequestLists() {
                     className={`text-xs p-1 rounded ${
                       loadingRequests[req.id]
                         ? "bg-gray-400 text-white cursor-not-allowed"
-                        : "text-blue-500 hover:underline bg-transparent"
+                        : "text-green-500 hover:underline bg-transparent"
                     }`}
                   >
                     {loadingRequests[req.id] ? (

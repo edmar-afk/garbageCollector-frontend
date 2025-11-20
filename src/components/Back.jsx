@@ -12,7 +12,7 @@ function Back() {
 
   return (
     <div className="fixed top-4 left-4 bg-white shadow-lg rounded-full">
-      <IconButton onClick={handleBack} color="primary">
+      <IconButton onClick={handleBack} color="success">
         <ArrowBackIcon />
       </IconButton>
     </div>

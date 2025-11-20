@@ -1,6 +1,6 @@
 import React from "react";
 
-const HistoryCard = ({ date, status, message }) => {
+const HistoryCard = ({ date, status, message, sacks }) => {
   let dotColor = "bg-gray-700";
   let borderColor = "border-gray-300";
   let statusColor = "text-gray-700";
@@ -26,12 +26,19 @@ const HistoryCard = ({ date, status, message }) => {
           <div
             className={`absolute z-20 w-3 h-3 rounded-full mt-1.5 -left-1.5 ${dotColor}`}
           />
-          <div className={`h-[100px] border-l-2 -ml-[1px] mt-2 ${borderColor}`} />
+          <div
+            className={`h-[100px] border-l-2 -ml-[1px] mt-2 ${borderColor}`}
+          />
         </div>
         <div className="pl-4 pt-1.5">
           <p className="mb-1 text-xs text-gray-400">{date}</p>
-          <p className={`text-md font-semibold ${statusColor}`}>{displayStatus}</p>
-          <p className="mb-4 text-sm text-gray-500 mt-2"><b>Garbage Type: </b>{message}</p>
+          <p className={`text-md font-semibold ${statusColor}`}>
+            {displayStatus}
+          </p>
+          <p className="mb-4 text-sm text-gray-500 mt-2">
+            <b>Garbage Type: </b>
+            {message} - <b>{sacks} Sacks in total</b>
+          </p>
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ export default function Navbar() {
               to={tab.value}
               className={`inline-flex flex-col items-center justify-center px-5 group ${
                 isActive
-                  ? "bg-blue-600 text-white"
+                  ? "bg-green-600 text-white"
                   : "hover:bg-gray-50"
               }`}
             >
@@ -30,7 +30,7 @@ export default function Navbar() {
                 className={`mb-2 ${
                   isActive
                     ? "text-white"
-                    : "text-gray-500 group-hover:text-blue-600"
+                    : "text-gray-500 group-hover:text-green-600"
                 }`}
               >
                 {tab.icon}
@@ -39,7 +39,7 @@ export default function Navbar() {
                 className={`text-sm ${
                   isActive
                     ? "text-white"
-                    : "text-gray-500 group-hover:text-blue-600"
+                    : "text-gray-500 group-hover:text-green-600"
                 }`}
               >
                 {tab.name}

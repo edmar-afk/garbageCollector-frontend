@@ -123,8 +123,8 @@ export default function CollectionHomepage() {
               <Popup minWidth={100} maxWidth={200}>
                 <div className="text-xs">
                   <div className="mb-2">
-                    {req.first_name} from {req.last_name} requested a garbage
-                    pickup on{" "}
+                    {req.first_name} from {req.last_name} requested a <b>{req.sacks} total sacks of garbage</b>
+                    {" "}pickup on{" "}
                     <b>
                       {new Date(req.date_requested)
                         .toLocaleString("en-US", {

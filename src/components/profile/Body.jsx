@@ -86,7 +86,7 @@ function Body() {
         <button
           type="button"
           onClick={handleIconClick}
-          className="absolute bottom-2 right-2 bg-blue-600 p-3 rounded-full"
+          className="absolute bottom-2 right-2 bg-green-600 p-3 rounded-full"
         >
           <PhotoCameraIcon className="text-white" />
         </button>
@@ -102,17 +102,17 @@ function Body() {
         {userInfo.first_name}
       </p>
       <div className="flex items-center justify-start gap-5 mt-8">
-        <p className="font-bold text-xs bg-blue-600 text-white py-2 px-4 rounded-md flex items-center">
+        <p className="font-bold text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
           <LocalPhoneIcon fontSize="small" />
           {profile.username}
         </p>
-        <p className="text-xs bg-blue-600 text-white py-2 px-4 rounded-md flex items-center">
+        <p className="text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
           <LocationOnIcon fontSize="small" />
           {userInfo.last_name}
         </p>
       </div>
       <p className="mt-6 text-gray-700 font-semibold">
-        You disposed <span className="text-blue-600">{requestCount}</span>{" "}
+        You disposed <span className="text-green-600">{requestCount}</span>{" "}
         request(s) you since joined us. Keep our community clean and safe!
       </p>
     </div>

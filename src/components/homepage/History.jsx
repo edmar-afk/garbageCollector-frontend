@@ -62,6 +62,7 @@ const History = () => {
               date={new Date(req.date_requested).toLocaleString()}
               status={req.status}
               message={req.garbage_type}
+              sacks={req.sacks}
             />
           ))
         ) : (

@@ -89,7 +89,7 @@ function RequestLists() {
           return (
             <div
               key={req.id}
-              className="flex flex-row w-full bg-white p-3 rounded-2xl shadow items-center"
+              className="flex flex-row w-full bg-white p-3 rounded-2xl shadow items-start"
             >
               <img
                 src={profilePic?.replace("http://", "https://") || logo}
@@ -101,8 +101,8 @@ function RequestLists() {
               />
 
               <div className="flex flex-col ml-2 w-full">
-                <div className="flex flex-row items-center justify-between w-full">
-                  <p className="text-md font-semibold truncate w-36">
+                <div className="flex flex-row items-start justify-between w-full">
+                  <p className="text-md font-semibold w-36">
                     {req.first_name} {req.last_name}
                   </p>
                   <button
@@ -124,8 +124,8 @@ function RequestLists() {
                     )}
                   </button>
                 </div>
-                <div className="flex flex-row items-center justify-between w-full">
-                  <p className="text-xs text-gray-500 truncate w-44">
+                <div className="flex flex-row items-end justify-between w-full">
+                  <p className="text-xs text-gray-500  w-44">
                     {req.garbage_type || "No garbage type"}
                   </p>
                   <p className="text-xs text-gray-400">
@@ -136,6 +136,7 @@ function RequestLists() {
                     })}
                   </p>
                 </div>
+                <p className="text-xs">{req.sacks || "No garbage type"} Sacks Total</p>
               </div>
             </div>
           );

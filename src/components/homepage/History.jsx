@@ -45,9 +45,9 @@ const History = () => {
           <p className="mx-2 font-extralight text-2xl text-gray-300">|</p>
           <p
             className={`text-sm font-semibold cursor-pointer ${
-              selectedTab === "Transported" ? "text-green-700" : "text-gray-500"
+              selectedTab === "Picked up" ? "text-green-700" : "text-gray-500"
             }`}
-            onClick={() => setSelectedTab("Transported")}
+            onClick={() => setSelectedTab("Picked up")}
           >
             Transported
           </p>

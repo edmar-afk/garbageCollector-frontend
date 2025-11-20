@@ -12,7 +12,7 @@ const HistoryCard = ({ date, status, message, sacks }) => {
     statusColor = "text-orange-500";
     displayStatus = "Awaiting for Pickup";
   }
-  if (status === "Success") {
+  if (status === "Picked up") {
     dotColor = "bg-green-600";
     borderColor = "border-green-600";
     statusColor = "text-green-600";

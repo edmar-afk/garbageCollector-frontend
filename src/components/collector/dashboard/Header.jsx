@@ -74,7 +74,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="bg-green-600 text-white pt-12 pb-24 px-4 relative">
+    <div className="bg-green-800 text-white pt-12 pb-24 px-4 relative">
       <img
         src={garbagebg}
         className="absolute w-82 -top-4 -right-7 opacity-50"
@@ -101,12 +101,12 @@ const Header = () => {
         </div>
         <div className="flex flex-row items-center justify-between">
           <p className="text-xs w-44">
-            <b className="text-sm text-green-200">Total</b> garbage disposal has
+            <b className="text-sm text-green-300">Total</b> garbage disposal has
             been picked up
           </p>
           <button
             onClick={fetchGarbageCounts}
-            className="flex flex-row items-center text-xs hover:text-green-200 transition z-50"
+            className="flex flex-row items-center text-xs hover:text-green-300 transition z-50"
           >
             <RefreshIcon
               fontSize="small"

@@ -102,10 +102,10 @@ function Body() {
         {userInfo.first_name}
       </p>
       <div className="flex items-center justify-start gap-5 mt-8">
-        <p className="font-bold text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
+        {/* <p className="font-bold text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
           <LocalPhoneIcon fontSize="small" />
           {profile.username}
-        </p>
+        </p> */}
         <p className="text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
           <LocationOnIcon fontSize="small" />
           {userInfo.last_name}

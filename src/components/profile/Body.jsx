@@ -68,7 +68,7 @@ function Body() {
   if (!profile) return <p>Loading...</p>;
 
   return (
-    <div className="p-4 mt-4">
+    <div className="p-4 mt-4 overflow-x-hidden">
       <div className="relative w-fit mb-6">
         <img
           src={
@@ -101,16 +101,18 @@ function Body() {
       <p className="text-4xl font-extrabold text-gray-800">
         {userInfo.first_name}
       </p>
-      <div className="flex items-center justify-start gap-5 mt-8">
-        {/* <p className="font-bold text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
+      <div className="flex flex-row gap-2 mt-8 items-stretch w-full">
+        <p className="flex font-bold gap-2 text-xs bg-green-600 text-white py-2 px-4 rounded-md items-center">
           <LocalPhoneIcon fontSize="small" />
-          {profile.username}
-        </p> */}
-        <p className="text-xs bg-green-600 text-white py-2 px-4 rounded-md flex items-center">
+          {profile.user.username}
+        </p>
+
+        <p className="flex text-xs gap-2 bg-green-600 text-white py-2 px-4 rounded-md items-center break-all">
           <LocationOnIcon fontSize="small" />
           {userInfo.last_name}
         </p>
       </div>
+
       <p className="mt-6 text-gray-700 font-semibold">
         You disposed <span className="text-green-600">{requestCount}</span>{" "}
         request(s) you since joined us. Keep our community clean and safe!

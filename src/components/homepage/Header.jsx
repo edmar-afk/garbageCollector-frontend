@@ -34,7 +34,7 @@ const Header = () => {
               <p class="font-semibold text-green-900">IMPORTANT REMINDER</p>
               <div class="text-sm text-gray-900  font-extralight">
                 <p>
-                  Garbage collection is scheduled Every Monday @ 8:00 AM! 🚮
+                  Garbage collection is scheduled Every Tuesday @ 8:00 AM! 🚮
                   Please ensure your trash is segregated:
                 </p>
                 <p className="mb-6">
